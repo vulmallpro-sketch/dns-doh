@@ -11,7 +11,7 @@
 ## 2. 安装前准备
 
 - Linux 服务器（root 权限）
-- 域名已解析到服务器（示例：`doh.mnhhnbb.com`）
+- 域名已解析到服务器（示例：`doh.example.com`）
 - Nginx 已安装
 - 域名 SSL 证书已配置好（宝塔可直接申请 Let's Encrypt）
 
@@ -87,16 +87,16 @@ nginx -t && nginx -s reload
 
 最终可用地址示例：
 
-`https://doh.mnhhnbb.com/dns-query/e9444f3c-e8e1-46af-be40-24cb76b8fe44`
+`https://doh.example.com/dns-query/e9444f3c-e8e1-46af-be40-24cb76b8fe44`
 
 ## 4. 一键脚本安装（宝塔路径）
 
 如果你已经在宝塔建好站点，可直接用脚本：
 
 ```bash
-cd /www/wwwroot/ceshi.1com
+cd /www/wwwroot/your-site
 chmod +x scripts/install_bt_uuid_doh.sh
-./scripts/install_bt_uuid_doh.sh --domain doh.mnhhnbb.com --site-conf /www/server/panel/vhost/nginx/ceshi.1com.conf
+./scripts/install_bt_uuid_doh.sh --domain doh.example.com --site-conf /www/server/panel/vhost/nginx/your-site.conf
 ```
 
 脚本会：
@@ -110,10 +110,10 @@ chmod +x scripts/install_bt_uuid_doh.sh
 
 ```yaml
 nameserver-policy:
-  "+.quandao.com":
-    - "https://doh.mnhhnbb.com/dns-query/<your-uuid>"
-  "+.jiandaoyun.com":
-    - "https://doh.mnhhnbb.com/dns-query/<your-uuid>"
+  "+.example.com":
+    - "https://doh.example.com/dns-query/<your-uuid>"
+  "+.test.com":
+    - "https://doh.example.com/dns-query/<your-uuid>"
 ```
 
 ## 6. 测试是否安装成功
@@ -121,7 +121,7 @@ nameserver-policy:
 ### 快速连通性测试
 
 ```bash
-curl -skI "https://doh.mnhhnbb.com/dns-query/<your-uuid>"
+curl -skI "https://doh.example.com/dns-query/<your-uuid>"
 ```
 
 返回 `400` 代表已到达 DoH 端点（请求体不完整是正常的）。
@@ -130,7 +130,7 @@ curl -skI "https://doh.mnhhnbb.com/dns-query/<your-uuid>"
 
 ```bash
 chmod +x scripts/test_doh_rfc8484.sh
-./scripts/test_doh_rfc8484.sh "https://doh.mnhhnbb.com/dns-query/<your-uuid>" baidu.com
+./scripts/test_doh_rfc8484.sh "https://doh.example.com/dns-query/<your-uuid>" baidu.com
 ```
 
 成功标准：
